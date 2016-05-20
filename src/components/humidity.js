@@ -10,7 +10,7 @@ export default class Humidity extends React.Component {
     render() {
         let self = this;
         return (
-            <div>Current humidity: { self.props.humidity.toFixed(2) }</div>
+            <div>Current humidity: { self.props.humidity != null ? self.props.humidity.toFixed(2) : '-' }</div>
         );
     }
 }

@@ -18,6 +18,7 @@ function createInitialState() {
     return fromJS({
         debug: true,
         temperature: null,
+        humidity: null,
         connectedToSensorHub: false
     });
 }

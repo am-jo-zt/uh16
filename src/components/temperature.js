@@ -10,7 +10,7 @@ export default class Temperature extends React.Component {
     render() {
         let self = this;
         return (
-            <div>Current temperature: { self.props.temperature.toFixed(2) }</div>
+            <div>Current temperature: { self.props.temperature != null ? self.props.temperature.toFixed(2) : '-' }</div>
         );
     }
 }
