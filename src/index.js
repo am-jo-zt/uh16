@@ -10,12 +10,13 @@ import reducer from './store/reducer';
 import * as Action from './store/action-creators';
 
 const socket = io(Urls.sensorHub);
-// const socket = io('ws://localhost:9001');
 socket.on('connect', __onConnect);
 socket.on('state', __onState);
 socket.on('disconnect', __onDisconnect);
 
 const store  = createStoreWithMiddleware(reducer);
+
+require('./style/main.css');
 
 ReactDOM.render(
     <Provider store={store}>
@@ -43,7 +44,13 @@ console.log('disconnected from sensor hub');
 }
 
 function __onState(data) {
-console.log(data);
     if (data == null) { return; }
-    store.dispatch(Action.setTemperature(data.value));
+    switch (data.type) {
+        case 'TEMPERATURE':
+            store.dispatch(Action.setTemperature(data.value));
+            break;
+        case 'HUMIDITY':
+            store.dispatch(Action.setHumidity(data.value));
+            break;
+    }
 }
