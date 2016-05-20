@@ -11,7 +11,7 @@ export default class ConnectionState extends React.Component {
     render() {
         let self = this;
         return (
-            <div><DefaultButton onClick={ () => {
+            <button onClick={ () => {
                 self.props.connectedToSensorHub
                     ? self.props.client.disconnect()
                     : self.props.client.connect() }
@@ -19,7 +19,7 @@ export default class ConnectionState extends React.Component {
                 self.props.connectedToSensorHub
                     ? 'disconnect'
                     : 'connect'
-            }</DefaultButton></div>
+            }</button>
         );
     }
 }

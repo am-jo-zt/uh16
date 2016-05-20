@@ -19,11 +19,12 @@ export class Dashboard extends React.Component {
     render() {
         let self = this;
         return (
-            <Panel className="bg-neutral-10" header={ self.props.connectedToSensorHub
-                ? 'connected'
-                : 'disconnected' }>
+            <Panel className="bg-neutral-10" header={
+                self.props.connectedToSensorHub
+                    ? 'connected'
+                    : 'disconnected'
+            } actions={ <ConnectionState { ...self.props  } /> }>
                 <Debug/>
-                <ConnectionState { ...self.props  } />
                 <div>
                     <Temperature { ...self.props } />
                     <Humidity { ...self.props } />
