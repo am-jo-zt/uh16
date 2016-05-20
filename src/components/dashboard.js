@@ -5,23 +5,8 @@ import { connect } from 'react-redux';
 import * as ActionCreators from '../store/action-creators';
 import ConnectionState from './connection-state';
 import Temperature from './temperature';
+import Humidity from './humidity';
 import Debug from './debug';
-
-// export const Dashboard = React.createClass({
-//     mixins: [PureRenderMixin],
-//     render: function() {
-//         let self = this;
-//         return (
-//             <div className="dashboard">
-// //                 <Debug/>
-// //                 <ConnectionState { ...self.props  } />
-//                 {/*<div>*/}
-//                     {/*<Temperature { ...self.props } />*/}
-//                 {/*</div>*/}
-//             </div>
-//         );
-//     }
-// });
 
 export class Dashboard extends React.Component {
     constructor(props) {
@@ -37,6 +22,7 @@ export class Dashboard extends React.Component {
                 <ConnectionState { ...self.props  } />
                 <div>
                     <Temperature { ...self.props } />
+                    <Humidity { ...self.props } />
                 </div>
             </div>
         );
@@ -45,11 +31,7 @@ export class Dashboard extends React.Component {
 
 function mapStateToProps(state) {
 console.log(`DashboardContainer mapStateToProps: ${state}`);
-    return {
-        connectedToSensorHub: state.get('connectedToSensorHub'),
-        temperature: state.get('temperature'),
-        debug: state.get('debug')
-    }
+    return state.toJSON();
 }
 
 export const DashboardContainer = connect(
