@@ -1,12 +1,15 @@
-import React from 'react'
+import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-
-export default class App extends React.Component {
+export default class Temperature extends React.Component {
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
 
-    render() { return this.props.children; }
+    render() {
+        return (
+            <div>Current temperature: { this.props.temperature }</div>
+        );
+    }
 }

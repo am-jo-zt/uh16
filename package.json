@@ -8,14 +8,31 @@
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app",
     "test": "nwb test",
-    "test:watch": "nwb test --server"
+    "test:watch": "nwb test --server",
+    "serve": "babel-node server/server.js"
   },
   "dependencies": {
+    "immutable": "^3.8.1",
+    "mock-socket": "^2.0.0",
     "react": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "react-dom": "^15.0.2",
+    "redux": "^3.5.2",
+    "websocketserver": "^1.0.0",
+    "classnames": "^2.2.3",
+    "history": "^2.1.1",
+    "react-addons-pure-render-mixin": "^15.0.2",
+    "react-redux": "^4.3.0",
+    "react-router": "^2.4.1",
+    "socket.io-client": "^1.4.6"
   },
   "devDependencies": {
-    "nwb": "0.10.x"
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "nodemon": "^1.9.2",
+    "nwb": "0.10.x",
+    "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.13.0"
   },
   "author": "",
   "license": "MIT",
