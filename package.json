@@ -5,11 +5,13 @@
   "private": true,
   "scripts": {
     "build": "nwb build-react-app",
+    "postbuild": "npm run prepare-pui",
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app",
     "test": "nwb test",
     "test:watch": "nwb test --server",
-    "serve": "babel-node server/server.js"
+    "serve": "babel-node server/server.js",
+    "prepare-pui": "dr-frankenstyle ./src/assets/pui"
   },
   "babel": {
     "presets": [
@@ -23,6 +25,8 @@
     "history": "^2.1.1",
     "immutable": "^3.8.1",
     "mock-socket": "^2.0.0",
+    "pui-react-buttons": "^5.1.1",
+    "pui-react-grids": "^5.1.1",
     "react": "^15.0.2",
     "react-addons-pure-render-mixin": "^15.0.2",
     "react-dom": "^15.0.2",
@@ -37,6 +41,7 @@
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
+    "dr-frankenstyle": "^0.2.7",
     "nodemon": "^1.9.2",
     "nwb": "0.10.x",
     "react-hot-loader": "^1.3.0",

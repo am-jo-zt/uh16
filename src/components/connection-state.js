@@ -1,5 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import { DefaultButton } from 'pui-react-buttons';
 
 export default class ConnectionState extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export default class ConnectionState extends React.Component {
                 self.props.connectedToSensorHub
                     ? 'connected'
                     : 'disconnected'
-            }</span><button onClick={ () => {
+            }</span><DefaultButton onClick={ () => {
                 self.props.connectedToSensorHub
                     ? self.props.client.disconnect()
                     : self.props.client.connect() }
@@ -22,7 +23,7 @@ export default class ConnectionState extends React.Component {
                 self.props.connectedToSensorHub
                     ? 'disconnect'
                     : 'connect'
-            }</button></div>
+            }</DefaultButton></div>
         );
     }
 }
