@@ -1,8 +1,8 @@
 import Server from 'socket.io';
 
-const _timeIvlTemperature = 5000,
-      _timeIvlHumidity = 5000,
-      _timeIvlLuminosity = 5000;
+const INTERVAL__TEMPERATURE = 5000,
+      INTERVAL__HUMIDITY = 5000,
+      INTERVAL__LUMINOSITY = 5000;
 
 let _server = new Server().attach(9001),
     _ivlTemperature,
@@ -16,8 +16,8 @@ init();
 
 function init() {
     _initServer();
-    _ivlTemperature = setInterval(__emitTemperature, 1000);
-    _ivlHumidity = setInterval(__emitHumidity, 1000);
+    _ivlTemperature = setInterval(__emitTemperature, INTERVAL__TEMPERATURE);
+    _ivlHumidity = setInterval(__emitHumidity, INTERVAL__HUMIDITY);
 }
 
 function _initServer() {
