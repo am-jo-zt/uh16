@@ -9,14 +9,14 @@ import reducer from './store/reducer';
 import * as Action from './store/action-creators';
 import Client from './client/client';
 
-const store  = createStoreWithMiddleware(reducer),
-    client = new Client(Urls.sensorHub, { onConnect: __onConnect, onState: __onState, onDisconnect: __onDisconnect });
+const client = new Client(Urls.sensorHub, { onConnect: __onConnect, onState: __onState, onDisconnect: __onDisconnect }),
+      store  = createStoreWithMiddleware(reducer);
 
 require('./style/main.css');
 
 ReactDOM.render(
     <Provider store={store}>
-        <DashboardContainer />
+        <DashboardContainer client={client} />
     </Provider>,
     document.querySelector('#app')
 );
