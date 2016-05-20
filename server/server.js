@@ -1,12 +1,8 @@
 import Server from 'socket.io';
 
-const INTERVAL__TEMPERATURE = 5000,
-      INTERVAL__HUMIDITY = 5000,
-      INTERVAL__LUMINOSITY = 5000;
+const INTERVAL = 5000;
 
 let _server = new Server().attach(9001),
-    _ivlTemperature,
-    _ivlHumidity,
     _iterTemp = _generateTemperature(),
     _iterHumidity = _generateHumidity();
 
@@ -16,13 +12,20 @@ init();
 
 function init() {
     _initServer();
-    _ivlTemperature = setInterval(__emitTemperature, INTERVAL__TEMPERATURE);
-    _ivlHumidity = setInterval(__emitHumidity, INTERVAL__HUMIDITY);
+    emitTemperature();
+    emitHumidity();
 }
 
 function _initServer() {
     _server.on("connection", __onConnection);
 }
+
+function emitTemperature() { setTimeout(__emitTemperature, rndTimeout()); }
+function emitHumidity() { setTimeout(__emitHumidity, rndTimeout()); }
+
+function rndTimeout() { return Math.random() * INTERVAL; }
+
+// Generators
 
 function* _generateTemperature() {
     let temperature = 22;
@@ -46,6 +49,7 @@ function __emitTemperature() {
         timestamp: Date.now(),
         value: _iterTemp.next().value
     });
+    emitTemperature();
 }
 
 function __emitHumidity() {
@@ -54,6 +58,7 @@ function __emitHumidity() {
         timestamp: Date.now(),
         value: _iterHumidity.next().value
     });
+    emitHumidity();
 }
 
 function __onConnection(socket) {
