@@ -1,7 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-export default class ConnectionState extends React.Component {
+export default class ConnectionIndicator extends React.Component {
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -10,15 +10,15 @@ export default class ConnectionState extends React.Component {
     render() {
         let self = this;
         return (
-            <button onClick={ () => {
+            <h4 style={
                 self.props.connectedToSensorHub
-                    ? self.props.client.disconnect()
-                    : self.props.client.connect() }
+                    ? { color: '#02ad00'}
+                    : { color: '#dd0000'}
             }>{
                 self.props.connectedToSensorHub
-                    ? 'disconnect'
-                    : 'connect'
-            }</button>
-        );
+                    ? 'connected'
+                    : 'disconnected'
+            }</h4>
+        )
     }
 }

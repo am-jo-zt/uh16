@@ -7,6 +7,7 @@ import * as ActionCreators from '../store/action-creators';
 import ConnectionState from './connection-state';
 import Temperature from './temperature';
 import Humidity from './humidity';
+import ConnectionIndicator from './connection-indicator';
 
 import Debug from './debug';
 
@@ -19,11 +20,8 @@ export class Dashboard extends React.Component {
     render() {
         let self = this;
         return (
-            <Panel className="bg-neutral-10" header={
-                self.props.connectedToSensorHub
-                    ? 'connected'
-                    : 'disconnected'
-            } actions={ <ConnectionState { ...self.props  } /> }>
+            <Panel className="bg-neutral-10" header={ <ConnectionIndicator { ...self.props } /> }
+                   actions={ <ConnectionState { ...self.props  } /> }>
                 <Debug/>
                 <div>
                     <Temperature { ...self.props } />
