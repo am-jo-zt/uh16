@@ -1,3 +1,3 @@
 export default {
-    sensorHub: 'ws://localhost:9000'
+    sensorHub: 'ws://localhost:9001'
 };

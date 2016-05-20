@@ -11,19 +11,27 @@
     "test:watch": "nwb test --server",
     "serve": "babel-node server/server.js"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
   "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "classnames": "^2.2.3",
+    "history": "^2.1.1",
     "immutable": "^3.8.1",
     "mock-socket": "^2.0.0",
     "react": "^15.0.2",
-    "react-dom": "^15.0.2",
-    "redux": "^3.5.2",
-    "websocketserver": "^1.0.0",
-    "classnames": "^2.2.3",
-    "history": "^2.1.1",
     "react-addons-pure-render-mixin": "^15.0.2",
+    "react-dom": "^15.0.2",
     "react-redux": "^4.3.0",
     "react-router": "^2.4.1",
-    "socket.io-client": "^1.4.6"
+    "redux": "^3.5.2",
+    "socket.io": "^1.4.6",
+    "socket.io-client": "^1.4.5",
+    "websocketserver": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

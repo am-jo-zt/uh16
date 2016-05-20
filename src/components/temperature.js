@@ -8,8 +8,9 @@ export default class Temperature extends React.Component {
     }
 
     render() {
+        let self = this;
         return (
-            <div>Current temperature: { this.props.temperature }</div>
+            <div>Current temperature: { self.props.temperature }</div>
         );
     }
 }

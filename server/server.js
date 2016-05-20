@@ -1,7 +1,6 @@
-import WebSocketServer from 'websocketserver';
+import Server from 'socket.io';
 
-let _server = new WebSocketServer('all', 9000),
-    _connectionList = [],
+let _server = new Server().attach(9001),
     _intervalTemperature,
     _iterTemp = _generateTemperature();
 
@@ -15,8 +14,7 @@ function init() {
 }
 
 function _initServer() {
-    _server.on("connection", __onConnect);
-    _server.on("closedconnection", __onDisconnect);
+    _server.on("connection", __onConnection);
 }
 
 function* _generateTemperature() {
@@ -29,17 +27,18 @@ function* _generateTemperature() {
 // Callbacks
 
 function __emitTemperature() {
-    let data = {
+    _server.emit('state', {
         type: 'TEMPERATURE',
         timestamp: Date.now(),
         value: _iterTemp.next().value
-    };
-    _server.sendMessage('all', JSON.stringify(data));
+    });
 }
 
-function __onConnect(id) { console.log(`New connection ${id}`); }
+function __onConnection(socket) {
+    console.log(`New connection ${socket}`);
+    socket.on('disconnect', __onDisconnect);
+}
 
-function __onDisconnect(id) {
-    _connectionList = _connectionList.filter(cur => cur !== id);
-    console.log(`Connection ${id} has left the server. Connected clients left: ${_connectionList.length}`);
+function __onDisconnect(socket) {
+    console.log(`Disconnected`);
 }
