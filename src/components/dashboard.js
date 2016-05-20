@@ -29,12 +29,7 @@ export class Dashboard extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-console.log(`DashboardContainer mapStateToProps: ${state}`);
-    return state.toJSON();
-}
-
 export const DashboardContainer = connect(
-    mapStateToProps,
+    state => state.toJSON(),
     ActionCreators
 )(Dashboard);
