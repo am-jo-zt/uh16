@@ -2,19 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-import io from 'socket.io-client';
 
 import Urls from './constants/urls';
 import { DashboardContainer } from './components/dashboard';
 import reducer from './store/reducer';
 import * as Action from './store/action-creators';
+import Client from './client/client';
 
-const socket = io(Urls.sensorHub);
-socket.on('connect', __onConnect);
-socket.on('state', __onState);
-socket.on('disconnect', __onDisconnect);
-
-const store  = createStoreWithMiddleware(reducer);
+const store  = createStoreWithMiddleware(reducer),
+    client = new Client(Urls.sensorHub, { onConnect: __onConnect, onState: __onState, onDisconnect: __onDisconnect });
 
 require('./style/main.css');
 
@@ -24,6 +20,12 @@ ReactDOM.render(
     </Provider>,
     document.querySelector('#app')
 );
+
+init();
+
+function init() {
+    client.connect();
+}
 
 function createStoreWithMiddleware(reducer) {
     return createStore(reducer, compose(

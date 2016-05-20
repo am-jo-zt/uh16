@@ -57,7 +57,7 @@ function __emitHumidity() {
 }
 
 function __onConnection(socket) {
-    console.log(`New connection ${socket}`);
+    console.log(`New connection ${socket.id}`);
     socket.on('disconnect', __onDisconnect);
 }
 
