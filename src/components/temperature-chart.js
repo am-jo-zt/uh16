@@ -66,5 +66,5 @@ export default class TemperatureChart extends React.Component {
             return idx % ticksPerLabel === 0 ? moment(entry.timestamp).format('DD.MM.YYYY H:mm:ss') : '';
         });
     }
-    _generateData(data) { return data.map((entry) => entry.value); }
+    _generateData(data) { return data.map((entry) => entry.value.toFixed(2)); }
 }
