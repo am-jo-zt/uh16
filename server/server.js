@@ -4,7 +4,8 @@ const INTERVAL = 5000;
 
 let _server = new Server().attach(9001),
     _iterTemp = _generateTemperature(),
-    _iterHumidity = _generateHumidity();
+    _iterHumidity = _generateHumidity(),
+    _iterIlluminance = _generateIlluminance();
 
 // Initialization
 
@@ -14,6 +15,7 @@ function init() {
     _initServer();
     emitTemperature();
     emitHumidity();
+    emitIlluminance();
 }
 
 function _initServer() {
@@ -22,6 +24,7 @@ function _initServer() {
 
 function emitTemperature() { setTimeout(__emitTemperature, rndTimeout()); }
 function emitHumidity() { setTimeout(__emitHumidity, rndTimeout()); }
+function emitIlluminance() { setTimeout(__emitIlluminance, rndTimeout()); }
 
 function rndTimeout() { return Math.random() * INTERVAL; }
 
@@ -41,6 +44,13 @@ function* _generateHumidity() {
     }
 }
 
+function* _generateIlluminance() {
+    let illuminance = 700;
+    while(1) {
+        yield illuminance + (100 * Math.random()) - 50;
+    }
+}
+
 // Callbacks
 
 function __emitTemperature() {
@@ -57,6 +67,14 @@ function __emitHumidity() {
         value: _iterHumidity.next().value
     });
     emitHumidity();
+}
+
+function __emitIlluminance() {
+    _server.emit('illuminance', {
+        timestamp: Date.now(),
+        value: _iterIlluminance.next().value
+    });
+    emitIlluminance();
 }
 
 function __onConnection(socket) {

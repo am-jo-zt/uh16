@@ -8,6 +8,8 @@ export default function reduce(state = createInitialState(), action) {
             return setState(setTemperature(state, action));
         case 'SET_HUMIDITY':
             return setState(setHumidity(state, action));
+        case 'SET_ILLUMINANCE':
+            return setState(setIlluminance(state, action));
         case 'CONNECT_TO_SENSOR_HUB':
             return setState(connectToSensorHub(state));
         case 'DISCONNECT_FROM_SENSOR_HUB':
@@ -21,11 +23,13 @@ function createInitialState() {
         debug: true,
         temperature: null,
         humidity: null,
+        illuminance: null,
         connectedToSensorHub: false,
 
         history: {
             temperature: [],
-            humidity: []
+            humidity: [],
+            illuminance: []
         }
     });
 }
@@ -40,6 +44,10 @@ function setTemperature(state, action) {
 function setHumidity(state, action) {
     let newState = state.set('humidity', action.value);
     return setHistoricalValue(newState, 'humidity', action);
+}
+function setIlluminance(state, action) {
+    let newState = state.set('illuminance', action.value);
+    return setHistoricalValue(newState, 'illuminance', action);
 }
 function setHistoricalValue(state, type, action) {
     let history = state.getIn(['history', type]);

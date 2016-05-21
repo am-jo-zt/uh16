@@ -4,7 +4,7 @@ export default {
     setState,
     setTemperature,
     setHumidity,
-    setLuminosity
+    setIlluminance
 };
 
 
@@ -41,10 +41,10 @@ function setHumidity(data) {
     }
 }
 
-function setLuminosity(data) {
+function setIlluminance(data) {
     return {
-        type: 'SET_LUMINOSITY',
-        dataType: 'luminosity',
+        type: 'SET_ILLUMINANCE',
+        dataType: 'illuminance',
         value: data.value,
         timestamp: data.timestamp
     }

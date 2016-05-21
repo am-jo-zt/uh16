@@ -5,6 +5,7 @@ export default function SensorHubConnector(store, client) {
     client.setDisconnectHandler((data) => { handleDisconnect(store, data); });
     client.setTemperatureHandler((data) => { handleTemperature(store, data); });
     client.setHumidityHandler((data) => { handleHumidity(store, data); });
+    client.setIlluminanceHandler((data) => { handleIlluminance(store, data); });
 }
 
 function handleConnect(store, data) {
@@ -24,4 +25,8 @@ function handleTemperature(store, data) {
 function handleHumidity(store, data) {
     if (data.value == null) { return; }
     store.dispatch(Action.setHumidity(data));
+}
+function handleIlluminance(store, data) {
+    if (data.value == null) { return; }
+    store.dispatch(Action.setIlluminance(data));
 }
