@@ -26,7 +26,7 @@ function _init() {
 
 function _render() {
     require('./style/main.css');
-    require('./assets/pui/components.css');
+//     require('./assets/pui/components.css');
 
     ReactDOM.render(
         <Provider store={_store}>
