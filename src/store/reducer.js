@@ -19,12 +19,27 @@ function createInitialState() {
         debug: true,
         temperature: null,
         humidity: null,
-        connectedToSensorHub: false
+        connectedToSensorHub: false,
+
+        history: {
+            temperature: [],
+            humidity: []
+        }
     });
 }
 
 function setState(state, newState) { return state.merge(newState); }
-function setTemperature(state, action) { return state.set('temperature', action.value); }
-function setHumidity(state, action) { return state.set('humidity', action.value); }
 function connectToSensorHub(state) { return state.set('connectedToSensorHub', true); }
 function disconnectFromSensorHub(state) { return state.set('connectedToSensorHub', false); }
+function setTemperature(state, action) {
+    let newState = state.set('temperature', action.value);
+    return setHistoricalValue(newState, 'temperature', action);
+}
+function setHumidity(state, action) {
+    let newState = state.set('humidity', action.value);
+    return setHistoricalValue(newState, 'humidity', action);
+}
+function setHistoricalValue(state, type, action) {
+    let history = state.getIn(['history', type]);
+    return state.setIn(['history', type], history.push(action));
+}

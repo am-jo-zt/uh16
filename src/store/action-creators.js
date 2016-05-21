@@ -19,27 +19,33 @@ function disconnectFromSensorHub() {
 function setState(state) {
     return {
         type: 'SET_STATE',
-        state
+        state: event.value
     };
 }
 
-function setTemperature(value) {
+function setTemperature(data) {
     return {
         type: 'SET_TEMPERATURE',
-        value
+        dataType: 'temperature',
+        value: data.value,
+        timestamp: data.timestamp
     };
 }
 
-function setHumidity(value) {
+function setHumidity(data) {
     return {
         type: 'SET_HUMIDITY',
-        value
+        dataType: 'humidity',
+        value: data.value,
+        timestamp: data.timestamp
     }
 }
 
-function setLuminosity(value) {
+function setLuminosity(data) {
     return {
         type: 'SET_LUMINOSITY',
-        value
+        dataType: 'luminosity',
+        value: data.value,
+        timestamp: data.timestamp
     }
 }

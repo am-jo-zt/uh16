@@ -19,9 +19,9 @@ console.log('disconnected from sensor hub');
 
 function handleTemperature(store, data) {
     if (data.value == null) { return; }
-    store.dispatch(Action.setTemperature(data.value));
+    store.dispatch(Action.setTemperature(data));
 }
 function handleHumidity(store, data) {
     if (data.value == null) { return; }
-    store.dispatch(Action.setHumidity(data.value));
+    store.dispatch(Action.setHumidity(data));
 }
