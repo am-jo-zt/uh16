@@ -21,7 +21,7 @@ export default class TemperatureChart extends React.Component {
     }
 
     _prepareChartData() {
-        let data = this._getDataWindow(this.props.history.temperature),
+        let data = this.props.history.temperature,
             chartData = this._generateData(data),
             labels = this._generateLabels(data);
         return {
@@ -67,5 +67,4 @@ export default class TemperatureChart extends React.Component {
         });
     }
     _generateData(data) { return data.map((entry) => entry.value); }
-    _getDataWindow(data) { return data.slice(Math.max(data.length - TICKS_X, 0), data.length); }
 }

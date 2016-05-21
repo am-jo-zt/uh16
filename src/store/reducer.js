@@ -1,5 +1,7 @@
 import { List, Map, fromJS } from 'immutable';
 
+const MAX_HISTORY_WINDOW_SIZE = 40;
+
 export default function reduce(state = createInitialState(), action) {
     switch(action.type) {
         case 'SET_TEMPERATURE':
@@ -41,5 +43,9 @@ function setHumidity(state, action) {
 }
 function setHistoricalValue(state, type, action) {
     let history = state.getIn(['history', type]);
-    return state.setIn(['history', type], history.push(action));
+    return state.setIn(['history', type], _getHistoryWindow(history.push(action)));
+}
+
+function _getHistoryWindow(history) {
+    return history.slice(Math.max(history.size - MAX_HISTORY_WINDOW_SIZE, 0), history.size);
 }
