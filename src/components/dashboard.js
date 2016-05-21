@@ -9,6 +9,7 @@ import Temperature from './temperature';
 import Humidity from './humidity';
 import ConnectionIndicator from './connection-indicator';
 import TemperatureChart from './temperature-chart';
+import HumidityChart from './humidity-chart';
 
 import Debug from './debug';
 
@@ -30,6 +31,7 @@ export class Dashboard extends React.Component {
                 </div>
                 <div>
                     <TemperatureChart { ... self.props } />
+                    <HumidityChart { ... self.props } />
                 </div>
             </Panel>
         );
