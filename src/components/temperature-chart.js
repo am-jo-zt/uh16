@@ -3,8 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { Line } from 'react-chartjs';
 import moment from 'moment';
 
-const TICKS_X = 40,
-      MAX_LABELS_X = 10;
+const MAX_LABELS_X = 10;
 
 export default class TemperatureChart extends React.Component {
     constructor(props) {
