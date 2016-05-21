@@ -1,20 +1,21 @@
 import io from 'socket.io-client';
 
 export default class Client {
-    constructor(url, { onConnect, onState, onDisconnect }) {
+    constructor(url) {
         this._url = url;
-        this.__onConnect = onConnect;
-        this.__onState = onState;
-        this.__onDisconnect = onDisconnect;
     }
+
+    setConnectHandler(handleConnect) { this.__handleConnect = handleConnect; }
+    setDisconnectHandler(handleDisconnect) { this.__handleDisconnect = handleDisconnect; }
+    setTemperatureHandler(handleTemperature) { this.__handleTemperature = handleTemperature; }
+    setHumidityHandler(handleHumidity) { this.__handleHumidity = handleHumidity; }
 
     connect() {
         let socket = this._socket = io(this._url);
-        socket.on('connect', this.__onConnect);
-        socket.on('state', this.__onState);
-        socket.on('disconnect', this.__onDisconnect);
+        socket.on('connect', this.__handleConnect);
+        socket.on('temperature', this.__handleTemperature);
+        socket.on('humidity', this.__handleHumidity);
+        socket.on('disconnect', this.__handleDisconnect);
     }
-    disconnect() {
-        this._socket.disconnect();
-    }
+    disconnect() { this._socket.disconnect(); }
 }

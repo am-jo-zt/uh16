@@ -44,8 +44,7 @@ function* _generateHumidity() {
 // Callbacks
 
 function __emitTemperature() {
-    _server.emit('state', {
-        type: 'TEMPERATURE',
+    _server.emit('temperature', {
         timestamp: Date.now(),
         value: _iterTemp.next().value
     });
@@ -53,8 +52,7 @@ function __emitTemperature() {
 }
 
 function __emitHumidity() {
-    _server.emit('state', {
-        type: 'HUMIDITY',
+    _server.emit('humidity', {
         timestamp: Date.now(),
         value: _iterHumidity.next().value
     });

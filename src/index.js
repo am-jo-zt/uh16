@@ -6,53 +6,40 @@ import { Provider } from 'react-redux';
 import Urls from './constants/urls';
 import { DashboardContainer } from './components/dashboard';
 import reducer from './store/reducer';
-import * as Action from './store/action-creators';
 import Client from './client/client';
+import connectStoreToClient from './connectors/sensor-hub-connector';
 
-const client = new Client(Urls.sensorHub, { onConnect: __onConnect, onState: __onState, onDisconnect: __onDisconnect }),
-      store  = createStoreWithMiddleware(reducer);
+let _client,
+    _store;
 
-require('./style/main.css');
+_init();
+_render();
 
-ReactDOM.render(
-    <Provider store={store}>
-        <DashboardContainer client={client} />
-    </Provider>,
-    document.querySelector('#app')
-);
+// IMPLEMENTATION DETAILS
 
-init();
-
-function init() {
-    client.connect();
+function _init() {
+    _client = new Client(Urls.sensorHub);
+    _store  = _createStoreWithMiddleware(reducer);
+    connectStoreToClient(_store, _client);
+    _client.connect();
 }
 
-function createStoreWithMiddleware(reducer) {
+function _render() {
+    require('./style/main.css');
+    require('./assets/pui/components.css');
+
+    ReactDOM.render(
+        <Provider store={_store}>
+            <DashboardContainer client={_client} />
+        </Provider>,
+        document.querySelector('#app')
+    );
+}
+
+function _createStoreWithMiddleware(reducer) {
     return createStore(reducer, compose(
         window.devToolsExtension ?
             window.devToolsExtension() :
             f => f
     ));
-}
-
-function __onConnect() {
-console.log('connected to sensor hub');
-    store.dispatch(Action.connectToSensorHub());
-}
-
-function __onDisconnect() {
-console.log('disconnected from sensor hub');
-    store.dispatch(Action.disconnectFromSensorHub());
-}
-
-function __onState(data) {
-    if (data == null) { return; }
-    switch (data.type) {
-        case 'TEMPERATURE':
-            store.dispatch(Action.setTemperature(data.value));
-            break;
-        case 'HUMIDITY':
-            store.dispatch(Action.setHumidity(data.value));
-            break;
-    }
 }
