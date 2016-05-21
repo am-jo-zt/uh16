@@ -1,6 +1,10 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { Line } from 'react-chartjs';
+import moment from 'moment';
+
+const TICKS_X = 40,
+      MAX_LABELS_X = 10;
 
 export default class TemperatureChart extends React.Component {
     constructor(props) {
@@ -17,11 +21,14 @@ export default class TemperatureChart extends React.Component {
     }
 
     _prepareChartData() {
+        let data = this._getDataWindow(this.props.history.temperature),
+            chartData = this._generateData(data),
+            labels = this._generateLabels(data);
         return {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: labels,
             datasets: [
                 {
-                    label: "My First dataset",
+                    label: "Temperature",
                     fill: false,
                     lineTension: 0.1,
                     backgroundColor: "rgba(75,192,192,0.4)",
@@ -39,7 +46,7 @@ export default class TemperatureChart extends React.Component {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: chartData,
                 }
             ]
         };
@@ -52,4 +59,13 @@ export default class TemperatureChart extends React.Component {
             }]
         };
     }
+
+    _generateLabels(data) {
+        let ticksPerLabel = Math.min(Math.floor(data.length / MAX_LABELS_X), 1);
+        return data.map((entry, idx) => {
+            return idx % ticksPerLabel === 0 ? moment(entry.timestamp).format('DD.MM.YYYY H:mm:ss') : '';
+        });
+    }
+    _generateData(data) { return data.map((entry) => entry.value); }
+    _getDataWindow(data) { return data.slice(Math.max(data.length - TICKS_X, 0), data.length); }
 }
