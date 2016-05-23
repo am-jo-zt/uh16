@@ -12,6 +12,7 @@ import TemperatureChart from './temperature-chart';
 import HumidityChart from './humidity-chart';
 import Illuminance from './illuminance';
 import IlluminanceChart from './illuminance-chart';
+import ComfortSnapshot from './comfort-snapshot';
 
 import Debug from './debug';
 
@@ -27,6 +28,7 @@ export class Dashboard extends React.Component {
             <Panel className="bg-neutral-10" header={ <ConnectionIndicator { ...self.props } /> }
                    actions={ <ConnectionState { ...self.props  } /> }>
                 <Debug/>
+                <ComfortSnapshot { ...self.props } />
                 <div>
                     <Temperature { ...self.props } />
                     <Humidity { ...self.props } />

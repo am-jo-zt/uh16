@@ -4,7 +4,8 @@ export default {
     setState,
     setTemperature,
     setHumidity,
-    setIlluminance
+    setIlluminance,
+    takeComfortSnapshot
 };
 
 
@@ -48,4 +49,11 @@ function setIlluminance(data) {
         value: data.value,
         timestamp: data.timestamp
     }
+}
+
+function takeComfortSnapshot() {
+    return {
+        type: 'COMFORT_SNAPSHOT',
+        timestamp: Date.now()
+    };
 }

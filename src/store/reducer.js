@@ -14,6 +14,8 @@ export default function reduce(state = createInitialState(), action) {
             return setState(connectToSensorHub(state));
         case 'DISCONNECT_FROM_SENSOR_HUB':
             return setState(disconnectFromSensorHub(state));
+        case 'COMFORT_SNAPSHOT':
+            return setState(takeComfortSnapshot(state));
     }
     return state;
 }
@@ -30,6 +32,11 @@ function createInitialState() {
             temperature: [],
             humidity: [],
             illuminance: []
+        },
+        comfortZone: {
+            temperature: null,
+            humidity: null,
+            illuminance: null
         }
     });
 }
@@ -53,6 +60,13 @@ function setHistoricalValue(state, type, action) {
     let history = state.getIn(['history', type]);
     return state.setIn(['history', type], _getHistoryWindow(history.push(action)));
 }
+function takeComfortSnapshot(state) {
+    let snapshot = state.setIn(['comfortZone', 'temperature'], state.get('temperature'))
+        .setIn(['comfortZone', 'humidity'], state.get('humidity'))
+        .setIn(['comfortZone', 'illuminance'], state.get('illuminance'));
+    return snapshot;
+}
+
 
 function _getHistoryWindow(history) {
     return history.slice(Math.max(history.size - MAX_HISTORY_WINDOW_SIZE, 0), history.size);
