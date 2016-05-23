@@ -15,7 +15,7 @@ export default class IlluminanceChart extends React.Component {
         let chartData = this._prepareChartData(),
             chartOptions = this._prepareChartOptions();
         return (
-            <Line data={chartData} options={chartOptions} width="600" height="250"/>
+            <Line data={chartData} options={chartOptions} width="600" height="300"/>
         );
     }
 
